@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: fact_order
+    description: This is the order fact table.
+    columns:
+      - name: salesorderid
+        description: The primary key of the order fact table.
+        tests:
+          - not_null
+
+      - name: customer_fk
+        description: The foreing key of the customer table.
+
+      - name: creditcard_fk
+        description: The foreing key of the credit card table.
+
+      - name: orderdate
+        description: The order date.
+
+      - name: status
+        description: The order status.
+
+      - name: totaldue
+        description: The order total price.
+     

@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: dim_product
+    description: This is the product dimension table. It includes informations about Adventure works products.
+    columns:
+      - name: product_sk
+        description: The surrogate key of the product dimension table generated with row_number.
+        tests:
+          - unique
+          - not_null
+
+      - name: productid
+        description: The natural key of the product table.
+        tests:
+          - unique
+          - not_null
+
+      - name: product_name
+        description: The product name.
+        tests:
+          - not_null

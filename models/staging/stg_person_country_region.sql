@@ -2,7 +2,7 @@ with
     source_data as (
         select 
             countryregioncode
-            , name as country_name
+            , name as country
             , modifieddate
         from {{source('adventure_works', 'person_countryregion')}}
 )

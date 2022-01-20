@@ -3,7 +3,7 @@ with
         select 
             stateprovinceid
             , countryregioncode
-            , name as state_name
+            , name as state
             , stateprovincecode
             , isonlystateprovinceflag
             , territoryid
