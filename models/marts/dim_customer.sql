@@ -4,7 +4,7 @@ with
             customerid
         from {{ref('stg_sales_customer')}}
     )
-    , selected_person as (
+    ,selected_person as (
         select
             businessentityid
             , person_name
@@ -12,7 +12,7 @@ with
     )
     , selected_businessentityaddress as (
         select
-            businessentityid
+            businessentityid as businessentity_id
             , addressid as address_id
         from {{ref('stg_person_business_entity_address')}}
     )
@@ -37,50 +37,37 @@ with
             , country
         from {{ref('stg_person_country_region')}}
     )
-    , transformation_customer as (
-        select *
-        from selected_customer
-        left join selected_person on selected_customer.customerid = selected_person.businessentityid
+    , transformation as (
+        select * 
+        from selected_person
+        left join selected_businessentityaddress on selected_person.businessentityid = selected_businessentityaddress.businessentity_id
+        left join selected_personaddress on selected_businessentityaddress.address_id = selected_personaddress.addressid
+        left join selected_personstateprovince on selected_personaddress.stateprovinceid = selected_personstateprovince.stateprovinceid
+        left join selected_personcontryregion on selected_personstateprovince.countryregioncode = selected_personcontryregion.countryregioncode
     )
     , customer as (
         select *
-        from transformation_customer
-        where businessentityid is not null
+        from selected_customer
+        left join transformation on selected_customer.customerid = transformation.businessentityid
     )
-    , transformations as (
-        select *
-        from customer
-        left join selected_businessentityaddress on customer.customerid = selected_businessentityaddress.businessentityid
-    )
-    , customer_address as (
-        select *
-        from transformations
-        left join selected_personaddress on transformations.address_id = selected_personaddress.addressid
-    )
-    , customer_add as (
-        select *
-        from customer_address
-        where addressid is not null
-    )
-    , customer_province as (
-        select *
-        from customer_address
-        left join selected_personstateprovince on customer_address.stateprovinceid = selected_personstateprovince.stateprovinceid
-    )
-    , customer_country as (
-        select *
-        from customer_province
-        left join selected_personcontryregion on customer_province.countryregioncode = selected_personcontryregion.countryregioncode
-    )
-    , final as (
+    , transformation_customer as (
         select
-            row_number() over (order by customerid) as customer_sk
-            , customerid
-            , addressid
+            customerid
             , person_name
             , city
             , state
             , country
-        from customer_country
+        from customer 
+        where address_id is not null
+    )
+    , final as (
+        select
+            row_number () over (order by customerid) as customer_sk
+            , customerid
+            , person_name
+            , city
+            , state
+            , country
+        from transformation_customer
     )
 select * from final
