@@ -45,15 +45,32 @@ with
     , customer as (
         select *
         from transformation_customer
-        where person_name is not null
+        where businessentityid is not null
     )
     , transformations as (
         select *
         from customer
         left join selected_businessentityaddress on customer.customerid = selected_businessentityaddress.businessentityid
-        left join selected_personaddress on selected_businessentityaddress.address_id = selected_personaddress.addressid
-        left join selected_personstateprovince on selected_personaddress.stateprovinceid = selected_personstateprovince.stateprovinceid
-        left join selected_personcontryregion on selected_personstateprovince.countryregioncode = selected_personcontryregion.countryregioncode
+    )
+    , customer_address as (
+        select *
+        from transformations
+        left join selected_personaddress on transformations.address_id = selected_personaddress.addressid
+    )
+    , customer_add as (
+        select *
+        from customer_address
+        where addressid is not null
+    )
+    , customer_province as (
+        select *
+        from customer_address
+        left join selected_personstateprovince on customer_address.stateprovinceid = selected_personstateprovince.stateprovinceid
+    )
+    , customer_country as (
+        select *
+        from customer_province
+        left join selected_personcontryregion on customer_province.countryregioncode = selected_personcontryregion.countryregioncode
     )
     , final as (
         select
@@ -64,6 +81,6 @@ with
             , city
             , state
             , country
-        from transformations
+        from customer_country
     )
 select * from final

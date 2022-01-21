@@ -2,23 +2,23 @@ version: 2
 
 models:
   - name: fact_order_detail
-    description: This is the order detail fact table. It includes informations about Adventure works order detail.
+    description: This is the sales order detail fact table.
     columns:
-      - name: salesorderdetailid
-        description: The primary key of the order detail fact table.
+      - name: salesorderid
+        description: The primary key of the sales order fact table.
         tests:
-          - unique
           - not_null
 
-      - name: salesorderid
-        description: The natural key of the sales order table.
-        tests:
-          - not_null
+      - name: customer_fk
+        description: The foreing key of the customer table.
 
       - name: product_fk
         description: The foreing key of the product table.
         tests:
           - not_null
+
+      - name: creditcard_fk
+        description: The foreing key of the credit card table.
 
       - name: orderqty
         description: The product quantity.
@@ -29,3 +29,12 @@ models:
         description: The product unit price.
         tests:
           - not_null
+
+      - name: orderdate
+        description: The order date.
+
+      - name: status
+        description: The order status.
+
+      - name: totaldue
+        description: The order total price.
