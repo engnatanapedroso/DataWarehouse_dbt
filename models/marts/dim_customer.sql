@@ -39,26 +39,21 @@ with
     )
     , transformation as (
         select * 
-        from selected_person
+        from selected_customer
+        full join selected_person on selected_customer.customerid = selected_person.businessentityid
         left join selected_businessentityaddress on selected_person.businessentityid = selected_businessentityaddress.businessentity_id
         left join selected_personaddress on selected_businessentityaddress.address_id = selected_personaddress.addressid
         left join selected_personstateprovince on selected_personaddress.stateprovinceid = selected_personstateprovince.stateprovinceid
         left join selected_personcontryregion on selected_personstateprovince.countryregioncode = selected_personcontryregion.countryregioncode
     )
     , customer as (
-        select *
-        from selected_customer
-        left join transformation on selected_customer.customerid = transformation.businessentityid
-    )
-    , transformation_customer as (
         select
             customerid
             , person_name
             , city
             , state
             , country
-        from customer 
-        where address_id is not null
+        from transformation
     )
     , final as (
         select
@@ -68,6 +63,6 @@ with
             , city
             , state
             , country
-        from transformation_customer
+        from customer
     )
 select * from final

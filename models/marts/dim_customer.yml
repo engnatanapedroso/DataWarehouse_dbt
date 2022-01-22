@@ -8,12 +8,9 @@ models:
         description: The surrogate key of the customer dimension table generated with row_number.
         tests:
           - unique
-          - not_null
 
       - name: customerid
         description: The natural key of the customer table.
-        tests:
-          - not_null
 
       - name: addressid
         description: The natural key of the person address table.

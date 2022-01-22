@@ -4,19 +4,17 @@ models:
   - name: fact_sales_reason
     description: This is the sales reason fact table. It includes informations about Adventure works sales reason.
     columns:
-      - name: sales_reason_sk
-        description: The surrogate key of the sales fact table generated with row_number.
+      - name: salesorderid
+        description: The natural key of the sales order header table.
         tests:
-          - unique
           - not_null
-
-      - name: salesreason_id
+      - name: salesreasonid
         description: The natural key of the sales reason table.
         tests:
           - not_null
 
-      - name: salesorderid
-        description: The natural key of the sales order header table.
+      - name: productid
+        description: The natural key of product sales.
         tests:
           - not_null
 
