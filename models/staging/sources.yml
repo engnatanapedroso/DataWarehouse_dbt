@@ -1,0 +1,210 @@
+version: 2
+
+sources:
+  - name: adventure_works
+    schema: Adventure_works_source_kondado
+    description: This is the Adventure works erp postgres database replica.
+    tables:
+      - name: sales_customer
+        description: This is the sales customer table. It includes informations about Adventure works customers.
+        columns:
+          - name: customerid
+            description: Natural key of the sales customer table.
+            tests:
+              - unique
+              - not_null
+
+      - name: sales_creditcard
+        description: This is the sales credit card table.
+        columns:
+          - name: creditcardid
+            description: Natural key of the sales credit card table.
+            tests:
+              - unique
+
+          - name: cardtype
+            description: This is the card type of sales credit card table.
+            tests:
+              - not_null
+
+      - name: person_person
+        description: This is the person table.
+        columns:
+          - name: businessentityid
+            description: Natural key of the person card table.
+            tests:
+              - unique
+              - not_null
+
+          - name: firstname
+            description: The first name person.
+            tests:
+              - not_null
+
+          - name: lastname
+            description: The last name person.
+            tests:
+              - not_null
+
+      - name: person_address
+        description: This is the person address table.
+        columns:
+          - name: addressid
+            description: Natural key of the person address table.
+            tests:
+              - unique
+              - not_null
+
+          - name: stateprovinceid
+            description: Natural key of state province table.
+            tests:
+              - not_null
+
+          - name: city
+            description: The person city.
+            tests:
+              - not_null
+
+      - name: person_businessentityaddress
+        description: This is the business entity address table.
+        columns:
+          - name: businessentityid
+            description: Natural key of the person table.
+            tests:
+              - not_null
+
+          - name: addressid
+            description: Natural key of person address table.
+            tests:
+              - not_null
+
+      - name: person_stateprovince
+        description: This is the person state table.
+        columns:
+          - name: stateprovinceid
+            description: Natural key of the person state table.
+            tests:
+              - unique
+              - not_null
+
+          - name: name
+            description: The person state name.
+            tests:
+              - not_null
+
+          - name: countryregioncode
+            description: Natural key of person country region table.
+            tests:
+              - not_null
+
+      - name: person_countryregion
+        description: This is the person country table.
+        columns:
+          - name: countryregioncode
+            description: Natural key of the person country table.
+            tests:
+              - unique
+              - not_null
+
+          - name: name
+            description: The person country name.
+            tests:
+              - unique
+              - not_null
+
+      - name: production_product
+        description: This is the product table. It includes informations about Adventure works products.
+        columns:
+          - name: productid
+            description: Natural key of the product table.
+            tests:
+              - unique
+              - not_null
+
+          - name: name
+            description: The products name renamed to product_name.
+            tests:
+              - not_null
+
+      - name: sales_salesorderheader
+        description: This is the sales order header table.
+        columns:
+          - name: salesorderid
+            description: Natural key of the sales order header table.
+            tests:
+              - unique
+              - not_null
+
+          - name: customerid
+            description: Natural key of the sales customer table.
+            tests:
+              - not_null
+
+          - name: creditcardid
+            description: Natural key of the sales credit card table.
+
+          - name: status
+            description: The order status.
+            tests:
+              - not_null       
+
+          - name: orderdate
+            description: The order date.
+            tests:
+              - not_null     
+
+      - name: sales_salesorderdetail
+        description: This is the sales order detail.
+        columns:
+          - name: salesorderid
+            description: Natural key of the sales order header table.
+            tests:
+              - not_null
+
+          - name: salesorderdetailid
+            description: Natural key of the sales order detail table.
+            tests:
+              - unique
+              - not_null
+
+          - name: productid
+            description: Natural key of the product table.
+            tests:
+              - not_null
+
+          - name: orderqty
+            description: The product quantity.
+            tests:
+              - not_null
+
+          - name: unitprice
+            description: The product unit price.
+            tests:
+              - not_null
+
+      - name: sales_salesreason
+        description: This is the sales reason table.
+        columns:
+          - name: salesreasonid
+            description: Natural key of the sales reason table.
+            tests:
+              - unique
+              - not_null
+
+          - name: name
+            description: The sales reason name.
+            tests:
+              - not_null
+
+      - name: sales_salesorderheadersalesreason
+        description: This is the sales order header sales reason table.
+        columns:
+          - name: salesorderid
+            description: Natural key of the order header table.
+            tests:
+              - not_null
+
+          - name: salesreasonid
+            description: Natural key of the sales reason table.
+            tests:
+              - not_null

@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: factless_fact_table
+    description: This is the bridge table. It includes informations about Adventure works sales order detail and products.
+

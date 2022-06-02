@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: This is the customer dimension table. It includes informations about Adventure works customers.
+    columns:
+      - name: customer_sk
+        description: The surrogate key of the customer dimension table generated with row_number.
+        tests:
+          - unique
+
+      - name: customerid
+        description: The natural key of the customer table.
+
+      - name: addressid
+        description: The natural key of the person address table.
+
+      - name: person_name
+        description: The customers name.
+
+      - name: city
+        description: The customers city.
+
+      - name: state
+        description: The customers state.
+
+      - name: country
+        description: The customers country.

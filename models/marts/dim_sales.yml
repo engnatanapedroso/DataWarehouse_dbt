@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: dim_sales
+    description: This is the sales dimension table. It includes informations about Adventure works credit card.
+    columns:
+      - name: creditcard_sk
+        description: The surrogate key of the sales dimension table generated with row_number.
+        tests:
+          - unique
+          - not_null
+
+      - name: creditcardid
+        description: The natural key of the credit card table.
+        tests:
+          - not_null
+
+      - name: cardtype
+        description: The credit card type.
+        tests:
+          - not_null

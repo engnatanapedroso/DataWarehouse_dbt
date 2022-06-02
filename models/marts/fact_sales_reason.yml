@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: fact_sales_reason
+    description: This is the sales reason fact table. It includes informations about Adventure works sales reason.
+    columns:
+      - name: salesorderid
+        description: The natural key of the sales order header table.
+        tests:
+          - not_null
+      - name: salesreasonid
+        description: The natural key of the sales reason table.
+        tests:
+          - not_null
+
+      - name: productid
+        description: The natural key of product sales.
+        tests:
+          - not_null
+
+      - name: reason
+        description: The reason sales.
+        tests:
+          - not_null
+
+      - name: reasontype
+        description: The reason type sales.
+        tests:
+          - not_null
